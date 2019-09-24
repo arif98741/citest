@@ -56,14 +56,15 @@
 
             <table class="table table-bordered ">
                 <thead>
-                    <th>Serial</th>
-                    <th>Product ID</th>
-                    <th>Product Name</th>
-                    <th>Sale Price</th>
-                    <th>Purchase Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th>Action</th>
+                    <th width="10%">Serial</th>
+                    <th width="20%">Product ID</th>
+                    <th width="20%">Product Name</th>
+                    <th width="10%">Sale Price</th>
+                    <th width="10%">Purchase Price</th>
+                    <th width="5%">Quantity</th>
+                    <th width="5%">Discount</th>
+                    <th width="10%">Total</th>
+                    <th width="5%">Action</th>
                 </thead>
 
                 <tbody id="append">
@@ -78,6 +79,9 @@
     //customer dropdown
     $('#customerdropdown').change(function(event) {
        //console.log($(this).val());
+
+       $('#append').children().remove();
+
        var id = $(this).val();
        $.ajax({
         url: '<?php echo base_url(); ?>api/customerapi/get_customer/'+id,
@@ -114,9 +118,10 @@
             +'<td class="text-center">'+i+'</td>'
             +'<td><span>'+response.product_id+'</span> <input name="product_id[]" value="'+response.product_id+'" class="form control input-full" type="hidden"></td>'
             +'<td><span>'+response.product_name+'</span> <input name="product_name[]"  value="'+response.product_name+'" class="form control input-full" type="hidden"></td>'
-            +'<td><span>'+response.sale_price+'</span> <input name="sale_prirce[]" value="'+response.sale_price+'" class="form control input-full sale_row'+i+'" type="hidden"></td>'
+            +'<td><span>'+response.sale_price+'</span> <input name="sale_price[]" value="'+response.sale_price+'" class="form control input-full sale_row'+i+'" type="hidden"></td>'
             +'<td><span>'+response.purchase_price+'</span> <input name="purchase_prirce[]" class="form control input-full" type="hidden"></td>'
             +'<td><input name="quantity[]" class="quantity quantity'+i+'" rowid="'+i+'" style="text-align:right;" class="form control input-full" type="number"></td>'
+            +'<td><input name="discount[]" class="discount discount'+i+'" rowid="'+i+'" style="text-align:right;" class="form control input-full" type="number"></td>'
             +'<td><input name="total[]" class="total'+i+'" style="text-align:right;" class="form control input-full" type="number" readonly></td>'
             
             +'<td id="deleteid'+i+'"><span class="btn btn-danger deletebtn" attr="'+i+'">X</span></td>'
@@ -141,13 +146,24 @@
                 var sale_price = $('.sale_row'+rowid).val();
                 $('.total'+rowid).val((sale_price * quantity).toFixed(2));
             });
+
+
+             // quantity action
+            $('.discount').keyup(function(event) {
+                var discount = $(this).val();
+                console.log(discount);
+                var rowid = $(this).attr('rowid');
+                var total = $('.total'+rowid).val();
+                var now = total - discount;
+                $('.total'+rowid).val(now.toFixed(2));
+            });
+
         }, error: function (error_data) {
                // console.log(error_data);
            }
        });
 
-       
-
+    
    });
 
     
