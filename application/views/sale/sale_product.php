@@ -172,6 +172,7 @@
                 var rowid = $(this).attr('attr');
                 console.log(rowid); 
                 $('#deleteid'+rowid).parent().remove();
+                total_grand_total();
                 calculation();
             });
 

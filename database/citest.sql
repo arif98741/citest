@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2019 at 04:54 AM
+-- Generation Time: Sep 24, 2019 at 09:18 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -76,24 +76,15 @@ INSERT INTO `tbl_group` (`groupid`, `groupname`, `updateby`) VALUES
 CREATE TABLE `tbl_invoice` (
   `serial` int(11) NOT NULL,
   `invoice_number` varchar(100) NOT NULL,
-  `supplier_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `carton` int(11) NOT NULL,
-  `piece` int(11) NOT NULL,
-  `purchase` int(6) NOT NULL,
-  `subtotal` float(10,2) NOT NULL,
   `total` float(10,2) NOT NULL,
-  `date` date NOT NULL,
-  `status` varchar(100) DEFAULT NULL,
-  `updateby` int(11) NOT NULL
+  `invoice_discount` float(8,2) NOT NULL DEFAULT '0.00',
+  `paid_amount` float(8,2) DEFAULT NULL,
+  `due_amount` float(8,2) DEFAULT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_invoice`
---
-
-INSERT INTO `tbl_invoice` (`serial`, `invoice_number`, `supplier_id`, `quantity`, `carton`, `piece`, `purchase`, `subtotal`, `total`, `date`, `status`, `updateby`) VALUES
-(1, '20190001', 125, 5, 0, 0, 460, 1150.00, 1150.00, '2019-04-17', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -103,23 +94,13 @@ INSERT INTO `tbl_invoice` (`serial`, `invoice_number`, `supplier_id`, `quantity`
 
 CREATE TABLE `tbl_invoice_products` (
   `serial_no` int(11) NOT NULL,
-  `invoice_id` varchar(20) NOT NULL,
+  `invoice_number` varchar(20) NOT NULL,
   `product_id` varchar(15) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `carton` int(11) NOT NULL,
-  `piece` double NOT NULL,
-  `purchase` float(10,2) NOT NULL,
-  `updateby` varchar(10) DEFAULT NULL,
-  `subtotal` float(10,2) NOT NULL
+  `price` float(8,2) DEFAULT NULL,
+  `discount` float(10,2) NOT NULL DEFAULT '0.00',
+  `total` float(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_invoice_products`
---
-
-INSERT INTO `tbl_invoice_products` (`serial_no`, `invoice_id`, `product_id`, `quantity`, `carton`, `piece`, `purchase`, `updateby`, `subtotal`) VALUES
-(1, '20190001', '222', 3, 0, 0, 230.00, '1', 690.00),
-(2, '20190001', '222', 2, 0, 0, 230.00, '1', 460.00);
 
 -- --------------------------------------------------------
 
@@ -140,9 +121,9 @@ CREATE TABLE `tbl_product` (
 --
 
 INSERT INTO `tbl_product` (`serial`, `product_id`, `product_name`, `sale_price`, `purchase_price`) VALUES
-(7, '11', 'First Pro', 256, 200),
-(8, '12', 'Second Pro', 300, 220),
-(9, '13', 'Third PRo', 540, 450);
+(7, '11', 'First Pro', 12.5, 200),
+(8, '12', 'Second Pro', 25.36, 220),
+(9, '13', 'Third PRo', 65.84, 450);
 
 -- --------------------------------------------------------
 
@@ -273,13 +254,13 @@ ALTER TABLE `tbl_group`
 -- AUTO_INCREMENT for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
-  MODIFY `serial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `serial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice_products`
 --
 ALTER TABLE `tbl_invoice_products`
-  MODIFY `serial_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `serial_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
