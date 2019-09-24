@@ -12,6 +12,11 @@
   src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
   <title>Point of Sale - Ariful Islam</title>
+  <style>
+    .input-full{
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,8 +46,8 @@
             Customer
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Add Customer</a>
-            <a class="dropdown-item" href="#">Customer List</a>
+            <a class="dropdown-item" href="<?php echo base_url(); ?>customer/add_customer">Add Customer</a>
+            <a class="dropdown-item" href="<?php echo base_url(); ?>/customer">Customer List</a>
           </div>
         </li>
 
