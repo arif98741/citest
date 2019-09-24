@@ -8,8 +8,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="<?php echo base_url(); ?>asset/js/jquery.min.js"></script>
 
   <title>Point of Sale - Ariful Islam</title>
   <style>
@@ -58,7 +57,7 @@
             Sales
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Sale Product</a>
+            <a class="dropdown-item" href="<?php echo base_url(); ?>/sale/sale_product">Sale Product</a>
             <a class="dropdown-item" href="#">Sales List</a>
           </div>
         </li>
