@@ -11,10 +11,6 @@ class Sale extends CI_Controller {
 	*/
 	public function index()
 	{	
-		$this->db->order_by('customer_name');
-		$data['customers'] = $this->db->get('tbl_customer')->result_object();
-		//echo "<pre>";
-		//print_r($data); exit;
 
 		$this->load->view('lib/header',$data);
 		$this->load->view('customer/index');
@@ -28,8 +24,10 @@ class Sale extends CI_Controller {
 	*/
 	public function sale_product()
 	{
-		$this->db->order_by('customer_name');
-		$data['customers'] = $this->db->get('tbl_customer')->result_object();
+		$data['customers'] = $this->db->order_by('customer_name')->get('tbl_customer')->result_object();
+		$data['products'] = $this->db->order_by('product_name')->get('tbl_product')->result_object();
+		
+
 		$this->load->view('lib/header',$data);
 		$this->load->view('sale/sale_product');
 		$this->load->view('lib/footer');
@@ -40,14 +38,33 @@ class Sale extends CI_Controller {
 	! Save Product
 	!=============================
 	*/
-	public function save_customer()
+	public function save_sale()
 	{
-		$data = array(
-			'customer_id' 	=> $this->input->post('customer_id'),
-			'customer_name' 	=> $this->input->post('customer_name'),
-			'contact_no' 	 => $this->input->post('contact_no'),
-			'email' => $this->input->post('email')
-		);
+		echo '<pre>';
+		print_r($_POST); exit;
+		$invoice_number = str_pad(1, 6, 0, STR_PAD_LEFT); 
+		$invoice = $this->db->order_by('serial')->get('tbl_invoice')->row();
+		if (!empty($row)) {
+			$invoice_number = $invoice->invoice_number + 1;
+		}
+
+		$this->db->insert('tbl_product',array(
+
+		));
+
+		$array_size =$this->input->post('product_id'); 
+
+		for($i= 0; $i< count($array_size); $i++)
+		{	
+			$data = array(
+				'product_id' 	=> $this->input->post('product_id')[$i],
+				'product_name' 	=> $this->input->post('product_name')[$i],
+				'sale_price' 	 => $this->input->post('sale_price')[$i],
+				'purchase_price' => $this->input->post('purchase_price')[$i]
+			);
+
+			$this->db->insert('tbl_product',$data); //insert data
+		}
 
 		$this->db->insert('tbl_customer',$data); //insert data
 		$this->session->set_flashdata('success', 'Customer added successfully');
