@@ -70,6 +70,41 @@
                 <tbody id="append">
 
                 </tbody>
+
+                <tbody id="calculation" class="text-right">
+                    <tr id="grand total">
+                        <td colspan="7">Grand Total</td>
+                        <td><input type="text" id="invoice_grand_total" class="form-control text-right"></td>
+                    </tr>
+
+                    <tr id="grand total">
+                        <td colspan="7">Discount</td>
+                        <td><input type="text" id="invoice_discount" class="form-control text-right"></td>
+                    </tr>
+
+                    <tr id="grand total">
+                        <td colspan="7">Tax</td>
+                        <td><input type="text" id="invoice_tax" class="form-control text-right"></td>
+                    </tr>
+
+                    <tr id="grand total">
+                        <td colspan="7">Paid </td>
+                        <td><input type="text" id="invoice_paid" class="form-control text-right"></td>
+                    </tr>
+
+                    <tr id="grand total">
+                        <td colspan="7">Due </td>
+                        <td><input type="text" id="invoice_due" class="form-control text-right"></td>
+                    </tr>
+
+                    <tr id="grand total">
+                        <td colspan="7">Invoice Total </td>
+                        <td><input type="text" id="invoice_total" class="form-control text-right"></td>
+                    </tr>
+
+                    
+                    
+                </tbody>
             </table>
 
         </form>
@@ -122,7 +157,7 @@
             +'<td><span>'+response.purchase_price+'</span> <input name="purchase_prirce[]" class="form control input-full" type="hidden"></td>'
             +'<td><input name="quantity[]" class="quantity quantity'+i+'" rowid="'+i+'" style="text-align:right;" class="form control input-full" type="number"></td>'
             +'<td><input name="discount[]" class="discount discount'+i+'" rowid="'+i+'" style="text-align:right;" class="form control input-full" type="number"></td>'
-            +'<td><input name="total[]" class="total'+i+'" style="text-align:right;" class="form control input-full" type="number" readonly></td>'
+            +'<td><input name="total[]" class="total total'+i+'" style="text-align:right;" class="form control input-full" type="number" readonly></td>'
             
             +'<td id="deleteid'+i+'"><span class="btn btn-danger deletebtn" attr="'+i+'">X</span></td>'
             +'</tr>';
@@ -137,6 +172,7 @@
                 var rowid = $(this).attr('attr');
                 console.log(rowid); 
                 $('#deleteid'+rowid).parent().remove();
+                calculation();
             });
 
             // quantity action
@@ -145,26 +181,91 @@
                 var quantity = $(this).val();
                 var sale_price = $('.sale_row'+rowid).val();
                 $('.total'+rowid).val((sale_price * quantity).toFixed(2));
+                $('#invoice_grand_total').val(total_grand_total());
+                calculation();
             });
 
-
              // quantity action
-            $('.discount').keyup(function(event) {
+             $('.discount').keyup(function(event) {
                 var discount = $(this).val();
-                console.log(discount);
                 var rowid = $(this).attr('rowid');
                 var total = $('.total'+rowid).val();
                 var now = total - discount;
                 $('.total'+rowid).val(now.toFixed(2));
+                $('#invoice_grand_total').val(total_grand_total());
+                calculation();
             });
 
-        }, error: function (error_data) {
+             // quantity action
+             $('#invoice_discount').keyup(function(event) {
+                var invoice_discount = $(this).val();
+                var invoice_grand_total = $('#invoice_grand_total').val();
+                $('#invoice_grand_total').val(total_grand_total());
+                calculation();
+            });
+
+              // quantity action
+             $('#invoice_paid').keyup(function(event) {
+                calculation();
+            });
+
+               //paid
+             $('#invoice_paid').keyup(function(event) {
+                calculation();
+            });
+
+            // tax
+             $('.invoice_tax').keyup(function(event) {
+                calculation();
+            });
+
+            
+
+            $('#invoice_grand_total').val(total_grand_total());
+
+      }, error: function (error_data) {
                // console.log(error_data);
            }
        });
 
-    
+
    });
 
+    //discount
+    function total_grand_total()
+    {
+        var value = 0;
+        $('tr .total').each(function() { // iterate over inputs
+            value += Number($(this).val()) 
+        });
+        return value;
+    }
+
+    function total_discount()
+    {
+        var value = 0;
+        $('tr .discount').each(function() { // iterate over inputs
+            value += Number($(this).val()) 
+        });
+        return value;
+    }
+
+    
+
+    function calculation()
+    {
+        var invoice_grand_total = $('#invoice_grand_total').val();
+        var invoice_discount = $('#invoice_discount').val();
+        var invoice_tax = $('#invoice_tax').val();
+        var invoice_paid = $('#invoice_paid').val();
+        var invoice_total = $('#invoice_total').val();
+        var grand_tax = invoice_grand_total + invoice_tax;
+        var due_discount = invoice_due - invoice_discount;
+        var now = grand_tax - due_discount;
+        var due = now  - invoice_paid;
+        $('#invoice_total').val(now) ;  
+        $('#invoice_due').val(due) ;  
+
+    }
     
 </script>

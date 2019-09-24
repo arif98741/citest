@@ -71,8 +71,8 @@ class Sale extends CI_Controller {
 				'product_id' 	=> $this->input->post('product_id')[$i],
 				'price' 	 	=> $this->input->post('sale_price')[$i],
 				'quantity' 		=> $this->input->post('quantity')[$i],
-				//'discount' 		=> $this->input->post('discount	')[$i],
-				//'total' 		=> $this->input->post('total	')[$i],
+				'discount' 		=> $this->input->post('discount	')[$i],
+				'total' 		=> $this->input->post('total	')[$i],
 			);
 
 			$this->db->insert('tbl_invoice_products',$data); //insert data
