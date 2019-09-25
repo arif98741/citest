@@ -342,7 +342,7 @@
 
 
 
-              
+
 
 
               <div class="information">
@@ -496,22 +496,18 @@
 
                 <tbody>
 
-                  <?php 
-                  foreach ($invoice_products as  as $invoice_product) { ?>
-                    
+                  <?php $i = 1 ; 
+                  $total  = 0;
+                  foreach ($invoice_products as  $product) { ?>
+
 
                     <tr>
 
-                      <td align="center">1</td>
+                      <td align="center"><?php echo $i; ?></td>
 
-                      <td align="left">125</td>
-
-                      <td align="left">Kazim IT<br>
-
-                        65 05-05-2019
-                      </td>
-
-                      <td align="center">5</td>
+                      <td align="left"><?php echo $product->product_id; ?></td>
+                      <td align="left"><?php echo $product->product_name; ?></td>
+                      <td align="left"><?php echo $product->quantity; ?></td>
 
                       <td align="right">250.00</td>
 
@@ -519,6 +515,7 @@
 
                     </tr>
 
+                    <?php $total += $product->total; ?>
 
                   <?php }   ?>
 
@@ -694,12 +691,6 @@
                 <tr>
 
 
-
-                  <td align="right" nowrap="nowrap">Previous Balance</td>
-
-
-
-                  <td align="right" nowrap="nowrap"> 12500</td>
 
 
 

@@ -104,8 +104,14 @@ class Sale extends CI_Controller {
 		$this->db->where('tbl_invoice.invoice_number',$invoice_number);
 		$data['invoice']  = $this->db->get('tbl_invoice')->row();
 
+
+		$this->db->join('tbl_product', 'tbl_product.product_id = tbl_invoice_products.product_id');
 		$this->db->where('tbl_invoice_products.invoice_number',$invoice_number);
 		$data['invoice_products'] =  $this->db->get('tbl_invoice_products')->result_object();
+
+		//echo "<pre>";
+		//print_r($data['invoice_products']);
+
 		$data['invoice_number'] = $invoice_number;
 
 
