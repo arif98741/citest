@@ -7,6 +7,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
   <script src="<?php echo base_url(); ?>asset/js/jquery.min.js"></script>
 
@@ -58,7 +59,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="<?php echo base_url(); ?>/sale/sale_product">Sale Product</a>
-            <a class="dropdown-item" href="#">Sales List</a>
+            <a class="dropdown-item" href="<?php echo base_url(); ?>/sale/index">Sales List</a>
           </div>
         </li>
 

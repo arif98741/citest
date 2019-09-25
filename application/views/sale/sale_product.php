@@ -74,32 +74,32 @@
                 <tbody id="calculation" class="text-right">
                     <tr id="grand total">
                         <td colspan="7">Grand Total</td>
-                        <td><input type="text" id="invoice_grand_total" class="form-control text-right"></td>
+                        <td><input type="text" name="invoice_grand_total" id="invoice_grand_total" value="0" class="form-control text-right"></td>
                     </tr>
 
                     <tr id="grand total">
                         <td colspan="7">Discount</td>
-                        <td><input type="text" id="invoice_discount" class="form-control text-right"></td>
+                        <td><input type="text" id="invoice_discount" value="0" class="form-control text-right"></td>
                     </tr>
 
                     <tr id="grand total">
                         <td colspan="7">Tax</td>
-                        <td><input type="text" id="invoice_tax" class="form-control text-right"></td>
+                        <td><input type="text" name="invoice_tax" id="invoice_tax" value="0" class="form-control text-right"></td>
                     </tr>
 
                     <tr id="grand total">
                         <td colspan="7">Paid </td>
-                        <td><input type="text" id="invoice_paid" class="form-control text-right"></td>
+                        <td><input type="text" name="invoice_paid" id="invoice_paid" value="0" class="form-control text-right"></td>
                     </tr>
 
                     <tr id="grand total">
                         <td colspan="7">Due </td>
-                        <td><input type="text" id="invoice_due" class="form-control text-right"></td>
+                        <td><input type="text" name="invoice_due" id="invoice_due" value="0" class="form-control text-right"></td>
                     </tr>
 
                     <tr id="grand total">
                         <td colspan="7">Invoice Total </td>
-                        <td><input type="text" id="invoice_total" class="form-control text-right"></td>
+                        <td><input type="text" name="invoice_total" id="invoice_total" class="form-control text-right"></td>
                     </tr>
 
                     
@@ -199,6 +199,7 @@
 
              // quantity action
              $('#invoice_discount').keyup(function(event) {
+                console.log('yes');
                 var invoice_discount = $(this).val();
                 var invoice_grand_total = $('#invoice_grand_total').val();
                 $('#invoice_grand_total').val(total_grand_total());
@@ -206,17 +207,17 @@
             });
 
               // quantity action
-             $('#invoice_paid').keyup(function(event) {
+              $('#invoice_paid').keyup(function(event) {
                 calculation();
             });
 
                //paid
-             $('#invoice_paid').keyup(function(event) {
+               $('#invoice_paid').keyup(function(event) {
                 calculation();
             });
 
             // tax
-             $('.invoice_tax').keyup(function(event) {
+            $('.invoice_tax').keyup(function(event) {
                 calculation();
             });
 
@@ -224,7 +225,7 @@
 
             $('#invoice_grand_total').val(total_grand_total());
 
-      }, error: function (error_data) {
+        }, error: function (error_data) {
                // console.log(error_data);
            }
        });
