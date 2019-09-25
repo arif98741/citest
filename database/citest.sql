@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2019 at 09:18 AM
+-- Generation Time: Sep 25, 2019 at 03:59 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -78,13 +78,22 @@ CREATE TABLE `tbl_invoice` (
   `invoice_number` varchar(100) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `total` float(10,2) NOT NULL,
   `invoice_discount` float(8,2) NOT NULL DEFAULT '0.00',
-  `paid_amount` float(8,2) DEFAULT NULL,
-  `due_amount` float(8,2) DEFAULT NULL,
+  `invoice_tax` float(8,2) NOT NULL,
+  `invoice_paid` float(8,2) DEFAULT NULL,
+  `invoice_due` float(8,2) DEFAULT NULL,
+  `invoice_grand_total` float(8,2) NOT NULL,
+  `invoice_total` float(10,2) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_invoice`
+--
+
+INSERT INTO `tbl_invoice` (`serial`, `invoice_number`, `customer_id`, `quantity`, `invoice_discount`, `invoice_tax`, `invoice_paid`, `invoice_due`, `invoice_grand_total`, `invoice_total`, `date`, `status`) VALUES
+(3, '000001', 1, 623, 0.00, 0.00, 0.00, 567.00, 7121.66, 65757.00, '2019-09-24 21:30:59', 'unpaid');
 
 -- --------------------------------------------------------
 
@@ -101,6 +110,14 @@ CREATE TABLE `tbl_invoice_products` (
   `discount` float(10,2) NOT NULL DEFAULT '0.00',
   `total` float(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_invoice_products`
+--
+
+INSERT INTO `tbl_invoice_products` (`serial_no`, `invoice_number`, `product_id`, `quantity`, `price`, `discount`, `total`) VALUES
+(1, '000001', '11', 567, 12.50, 657.00, 5708.50),
+(2, '000001', '12', 56, 25.36, 7.00, 1413.16);
 
 -- --------------------------------------------------------
 
@@ -254,13 +271,13 @@ ALTER TABLE `tbl_group`
 -- AUTO_INCREMENT for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
-  MODIFY `serial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `serial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice_products`
 --
 ALTER TABLE `tbl_invoice_products`
-  MODIFY `serial_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `serial_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
